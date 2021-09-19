@@ -17,3 +17,5 @@ systemctl start xrdp-sesman.service
 
 systemctl status xrdp
 systemctl status xrdp-sesman.service
+
+ip a
