@@ -8,5 +8,5 @@ echo "allowed_users=anybody" | sudo tee -a /etc/X11/Xwrapper.config
 sudo cp ~/.xinitrc ~/.xinitrc.original
 echo "dbus-launch startxfce4" | sudo tee -a ~/.xinitrc
 
-systemctl --now enable xrdp.service
-systemctl --now enable xrdp-sesman.service
+systemctl enable xrdp.service
+systemctl enable xrdp-sesman.service
