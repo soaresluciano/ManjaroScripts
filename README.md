@@ -1,1 +1,1 @@
-# My Linux Sripts
+# My Linux Scripts
