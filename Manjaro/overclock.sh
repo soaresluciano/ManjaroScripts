@@ -1,6 +1,7 @@
 #!/bin/sh
 
-cp /boot/config.txt /boot/config.txt.original
+sudo echo "Applying overclock patch"
+sudo cp /boot/config.txt /boot/config.txt.original
 
 cat <<EOF | sudo tee -a /boot/config.txt
 #Overclock to 2.147GHz
