@@ -1,20 +1,20 @@
 #!/bin/sh
+source ~/Scripts/cupCake.sh
 
-sudo echo "Setup for Manjaro minimal"
-sudo pacman-mirrors --continent && sudo pacman -Syu
+piOverclock() {
+    Step "Overclock Pi" &&
+    overclockPi /boot/config.txt
+}
 
-#Xorg and drivers
-sudo pacman -S --needed xorg
+updateDistro () {
+    Step "Syncronize DB and update system" &&
+    sudo pacman-mirrors --fasttrack &&
+    sudo pacman -Syyu
+}
 
-#KDE
-sudo pacman -S --needed sddm plasma 
+installBasics () {
+    Step "Install basic utilities" &&
+    sudo pacman -S --needed yay neofetch htop base-devel
+}
 
-#Utilities
-sudo pacman -S --needed yay git neofetch htop base-devel
-
-# Services
-sudo systemctl enable sddm
-sudo systemctl enable NetworkManager
-
-#Reboot
-sudo systemctl reboot
+Run $0 'askSudo piOverclock updateDistro installBasics'

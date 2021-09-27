@@ -1,21 +1,47 @@
 #!/bin/sh
-sudo pacman -Syu --needed base-devel git yay
-yay -S xorgxrdp-git
+source ~/Scripts/utils.sh
+source ~/Scripts/cupCake.sh
 
-systemctl enable xrdp.service
-systemctl enable xrdp-sesman.service
+installPackages (){
+    Step "Install packages" &&
+    yay -S xrdp xorgxrdp
+}
 
-sudo cp /etc/X11/Xwrapper.config /etc/X11/Xwrapper.config.original
-echo "allowed_users=anybody" | sudo tee -a /etc/X11/Xwrapper.config
+XwrapperConfig (){
+    local file=/etc/X11/Xwrapper.config
 
-sudo cp ~/.xinitrc ~/.xinitrc.original
-sed -i '$ d' ~/.xinitrc
-echo "dbus-launch startxfce4" | sudo tee -a ~/.xinitrc
+    Step "Configuring Xwrapper.config" &&
+    backup $file &&
+    appendTo $file "allowed_users=anybody"
+}
 
-systemctl start xrdp.service
-systemctl start xrdp-sesman.service
+xinitrc (){
+    Step "Configuring .xinitrc" &&
+    overwrite ~/Scripts/Manjaro/.xinitrc ~/.xinitrc
+}
 
-systemctl status xrdp
-systemctl status xrdp-sesman.service
+xrdpConfig (){
+    local file=/etc/xrdp/xrdp.ini
+    Step "Configuring xrdp.ini" &&
+    backup $file &&
+    replaceString $file "crypt_level=high" "crypt_level=none"
+}
 
-ip a
+startServices (){
+    Step "Starting the services" &&
+    systemctl enable xrdp.service --now &&
+    systemctl enable xrdp-sesman.service --now
+}
+
+servicesStatus (){
+    Step "Checcking the services status" &&
+    echo "sudo systemctl status xrdp" &&
+    sudo "sudo systemctl status xrdp-sesman.service"
+}
+
+myIp (){
+    Step "Checking Ip address" &&
+    ip a
+}
+
+Run $0 'askSudo installPackages XwrapperConfig xrdpinitrcConfig servicesStatus myIp'
