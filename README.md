@@ -5,10 +5,6 @@ Usage
 ------------
 
 The project can be cloned and the scripts executed as necessary.
-
-The following command can be run to make the script files executeble:
-
-	find . -name "*.sh" -exec chmod u+x {} \;
     
 # What I Learned
 
