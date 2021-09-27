@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ~/.xrdpinitrc
+# ~/.xinitrc
 #
 # Executed by /etc/xrdp/startwm.sh (run your window manager from here)
 
