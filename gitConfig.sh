@@ -1,4 +1,6 @@
 #!/bin/sh
+
+git remote set-url origin git@github.com:soaresluciano/Scripts.git
 echo -n "Please enter your name: "
 read name
 git config --global user.name "$name"
