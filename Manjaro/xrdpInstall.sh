@@ -2,20 +2,25 @@
 source ~/Scripts/utils.sh
 source ~/Scripts/cupCake.sh
 
+addKey (){
+    Step "Adding GPG key" &&
+    gpg --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 61ECEABBF2BB40E3A35DF30A9F72CDBC01BF10EB
+}
+
 installPackages (){
     Step "Install packages" &&
-    yay -S xrdp xorgxrdp
+    yay -S --needed xrdp xorgxrdp
 }
 
 XwrapperConfig (){
     local file=/etc/X11/Xwrapper.config
 
     Step "Configuring Xwrapper.config" &&
-    backup $file &&
+    backupOrCreate $file &&
     appendTo $file "allowed_users=anybody"
 }
 
-xinitrc (){
+xinitrcConfig (){
     Step "Configuring .xinitrc" &&
     overwrite ~/Scripts/Manjaro/.xinitrc ~/.xinitrc
 }
@@ -34,9 +39,9 @@ startServices (){
 }
 
 servicesStatus (){
-    Step "Checcking the services status" &&
-    echo "sudo systemctl status xrdp" &&
-    sudo "sudo systemctl status xrdp-sesman.service"
+    Step "Checking the services status" &&
+    serviceStatus xrdp.service &&
+    serviceStatus xrdp-sesman.service
 }
 
 myIp (){
@@ -44,4 +49,4 @@ myIp (){
     ip a
 }
 
-Run $0 'askSudo installPackages XwrapperConfig xrdpinitrcConfig servicesStatus myIp'
+Run $0 'askSudo addKey installPackages XwrapperConfig xinitrcConfig xrdpConfig startServices servicesStatus myIp'

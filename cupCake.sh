@@ -59,5 +59,5 @@ Run (){
 
 askSudo () {
     Step "Elevated permission is required" &&
-    sudo whoami && echo "in the house."
+    echo "`sudo whoami` is in the house."
 }

@@ -22,6 +22,7 @@ backup () {
 
 overwrite () {
     yes | sudo cp $1 $2
+    echo "The $2 is in place"
 }
 
 appendTo () {
@@ -32,7 +33,12 @@ replaceString () {
     local filename=$1
     local search=$2
     local replace=$3
-    sed -i "s/$search/$replace/" $filename
+    sudo sed -i "s/$search/$replace/" $filename
+    echo "The $filename was updated"
+}
+
+serviceStatus (){
+    echo "Service $1 is `systemctl is-active $1`"
 }
 
 overclockPi () {
