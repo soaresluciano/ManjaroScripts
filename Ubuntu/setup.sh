@@ -1,10 +1,10 @@
 #!/bin/sh
-source ~/Scripts/utils.sh
-source ~/Scripts/cupCake.sh
+. ~/Scripts/utils.sh
+. ~/Scripts/cupCake.sh
 
 piOverclock() {
     Step "Overclock Pi" &&
-    overclockPi /boot/firmware/config.txt
+    overclockPi /boot/firmware/usercfg.txt
 }
 
 fixKeyboard() {

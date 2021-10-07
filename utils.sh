@@ -46,6 +46,7 @@ local file=$1
 backup $file
 
 cat <<EOF | sudo tee -a $file
+
 #Overclock to 2.147GHz
 over_voltage=6
 arm_freq=2147
