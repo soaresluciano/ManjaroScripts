@@ -1,4 +1,3 @@
-#!/bin/sh
 . ~/Scripts/utils.sh
 . ~/Scripts/cupCake.sh
 
@@ -25,7 +24,7 @@ installBasics() {
     sudo apt -y install htop neofetch
 }
 
-installCode (){
+installCode(){
     Step "Install MS Code" &&
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg &&
     sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/ &&
@@ -35,13 +34,13 @@ installCode (){
     sudo apt -y install apt-transport-https code
 }
 
-installNode (){
+installNode(){
     Step "Install node, npm & yarn" &&
     sudo apt -y install nodejs npm code &&
     sudo npm install --global yarn
 }
 
-cleanUp (){
+cleanUp(){
     Step "Execute a cleanup" &&
     sudo apt -y autoremove &&
     sudo apt clean

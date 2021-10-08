@@ -1,4 +1,3 @@
-#!/bin/sh
 sudo apt -y purge deja-dup*
 sudo apt -y purge celluloid*
 sudo apt -y purge simple-scan*
