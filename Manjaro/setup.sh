@@ -4,7 +4,7 @@ source ~/Scripts/cupCake.sh
 updateDistro () {
     Step "Syncronize DB and update system" &&
     sudo pacman-mirrors --fasttrack &&
-    sudo pacman -Syyu
+    sudo pacman -Syu
 }
 
 installBasics () {
