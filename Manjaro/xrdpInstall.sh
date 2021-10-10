@@ -32,6 +32,14 @@ xrdpConfig (){
     replaceString $file "crypt_level=high" "crypt_level=none"
 }
 
+sesmanConfig (){
+    local file=/etc/xrdp/sesman.ini
+    Step "Configuring sesman.ini" &&
+    backup $file &&
+    replaceString $file "KillDisconnected=false" "KillDisconnected=true" &&
+    replaceString $file "DisconnectedTimeLimit=0" "DisconnectedTimeLimit=60"
+}
+
 startServices (){
     Step "Starting the services" &&
     systemctl enable xrdp.service --now &&
@@ -49,4 +57,4 @@ myIp (){
     ip a
 }
 
-Run $0 'askSudo addKey installPackages XwrapperConfig xinitrcConfig xrdpConfig startServices servicesStatus myIp'
+Run $0 'askSudo addKey installPackages XwrapperConfig xinitrcConfig xrdpConfig sesmanConfig startServices servicesStatus myIp'
