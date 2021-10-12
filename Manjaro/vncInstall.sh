@@ -17,8 +17,7 @@ sddmUninstall (){
 lightdmInstall (){
     local file=/etc/lightdm/lightdm.conf
     Step "Installing lightdm" &&
-    sudo pacman -S lightdm lightdm-slick-greeter &&
-    replaceString $file "#greeter-session=example-gtk-gnome" "greeter-session=lightdm-slick-greeter"
+    sudo pacman -S lightdm &&
 }
 
 lightdmConfig (){
