@@ -11,13 +11,13 @@ sddmUninstall (){
     Step "Uninstalling SDDM" &&
     sudo systemctl stop sddm.service &&
     sudo systemctl disable sddm.service &&
-    sudo pacman -Rs sddm-kcm &&
+    sudo pacman -Rs sddm-kcm
 }
 
 lightdmInstall (){
     local file=/etc/lightdm/lightdm.conf
     Step "Installing lightdm" &&
-    sudo pacman -S lightdm &&
+    sudo pacman -S lightdm
 }
 
 lightdmConfig (){
