@@ -4,29 +4,25 @@ source ~/Scripts/cupCake.sh
 
 installPackages (){
     Step "Install packages" &&
-    pacman -S --needed tigervnc
+    sudo pacman -S --needed tigervnc
 }
 
 lightdmConfig (){
     local file=/etc/lightdm/lightdm.conf
-	local txt= "" \
-	"[XDMCPServer]" \
-	"enabled=true" \
-	"port=177" \
     Step "Configuring lightdm" &&
     backup $file &&
-    appendTo $file txt
+    appendTo $file "[XDMCPServer]" &&
+    appendTo $file "enabled=true" &&
+    appendTo $file "port=177"
 }
 
 gdmConfig (){
     local file=/etc/gdm/custom.conf
-	local txt= "" \
-	"[xdmcp]" \
-	"Enable=true" \
-	"Port=177" \
     Step "Configuring gdm" &&
     backup $file &&
-    appendTo $file txt
+    appendTo $file "[xdmcp]" &&
+    appendTo $file "Enable=true" &&
+    appendTo $file "Port=177"
 }
 
 socketConfig (){
@@ -36,19 +32,14 @@ socketConfig (){
 }
 
 serviceConfig (){
-    local file=/etc/systemd/system/xvnc@.service
+    local destination=/etc/systemd/system/xvnc@.service
     Step "Configuring xvnc@.service" &&
 	overwrite ./xvnc@.service $destination
 }
 
 startService (){
     Step "Starting the service" &&
-    systemctl enable xvnc.socket --now &&
-}
-
-serviceStatus (){
-    Step "Checking the service status" &&
-    serviceStatus xvnc.socket
+    systemctl enable xvnc.socket --now
 }
 
 myIp (){
@@ -56,4 +47,4 @@ myIp (){
     ip a
 }
 
-Run $0 'askSudo installPackages lightdmConfig gdmConfig socketConfig serviceConfig startService serviceStatus myIp'
+Run $0 'askSudo installPackages lightdmConfig gdmConfig socketConfig serviceConfig startService myIp'
