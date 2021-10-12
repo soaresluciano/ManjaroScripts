@@ -7,17 +7,11 @@ installPackages (){
     sudo pacman -S --needed tigervnc
 }
 
-sddmUninstall (){
-    Step "Uninstalling SDDM" &&
-    sudo systemctl stop sddm.service &&
-    sudo systemctl disable sddm.service &&
-    sudo pacman -Rs sddm-kcm
-}
-
 lightdmInstall (){
     local file=/etc/lightdm/lightdm.conf
     Step "Installing lightdm" &&
-    sudo pacman -S lightdm
+    sudo pacman -S lightdm &&
+    sudo systemctl enable lightdm.service --force
 }
 
 lightdmConfig (){
@@ -29,13 +23,9 @@ lightdmConfig (){
     appendTo $file "port=177"
 }
 
-gdmConfig (){
-    local file=/etc/gdm/custom.conf
-    Step "Configuring gdm" &&
-    backup $file &&
-    appendTo $file "[xdmcp]" &&
-    appendTo $file "Enable=true" &&
-    appendTo $file "Port=177"
+sddmUninstall (){
+    Step "Uninstalling SDDM" &&
+    sudo pacman -Rs sddm-kcm
 }
 
 socketConfig (){
@@ -60,4 +50,4 @@ myIp (){
     ip a
 }
 
-Run $0 'askSudo installPackages sddmUninstall lightdmConfig gdmConfig socketConfig serviceConfig startService myIp'
+Run $0 'askSudo installPackages lightdmInstall lightdmConfig sddmUninstall socketConfig serviceConfig startService myIp'
