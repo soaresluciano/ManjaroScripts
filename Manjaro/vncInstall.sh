@@ -10,14 +10,15 @@ installPackages (){
 lightdmInstall (){
     local file=/etc/lightdm/lightdm.conf
     Step "Installing lightdm" &&
-    sudo pacman -S lightdm &&
+    sudo pacman -S lightdm lightdm-slick-greeter &&
+    backup $file &&
+    replaceString $file "#greeter-session=example-gtk-gnome" "greeter-session=lightdm-slick-greeter" &&
     sudo systemctl enable lightdm.service --force
 }
 
 lightdmConfig (){
     local file=/etc/lightdm/lightdm.conf
     Step "Configuring lightdm" &&
-    backup $file &&
     appendTo $file "[XDMCPServer]" &&
     appendTo $file "enabled=true" &&
     appendTo $file "port=177"
@@ -50,4 +51,9 @@ myIp (){
     ip a
 }
 
-Run $0 'askSudo installPackages lightdmInstall lightdmConfig sddmUninstall socketConfig serviceConfig startService myIp'
+reboot (){
+    Step "Rebooting" &&
+    sudo reboot now
+}
+
+Run $0 'askSudo installPackages lightdmInstall lightdmConfig sddmUninstall socketConfig serviceConfig startService myIp reboot'
