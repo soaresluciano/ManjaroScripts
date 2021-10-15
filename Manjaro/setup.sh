@@ -1,18 +1,18 @@
 #!/bin/sh
-source ~/Scripts/cupCake.sh
+source ../cupCake.sh
 
-updateDistro () {
+updateDistro(){
     Step "Syncronize DB and update system" &&
-    sudo pacman-mirrors --fasttrack &&
+    sudo pacman-mirrors --geoip &&
     sudo pacman -Syu
 }
 
-installBasics () {
+installBasics(){
     Step "Install basic utilities" &&
     sudo pacman -S --needed yay neofetch htop base-devel
 }
 
-piOverclock() {
+piOverclock(){
     Step "Overclock Pi" &&
     overclockPi /boot/config.txt
 }

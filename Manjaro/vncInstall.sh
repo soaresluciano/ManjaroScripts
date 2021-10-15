@@ -1,13 +1,13 @@
 #!/bin/sh
-source ~/Scripts/utils.sh
-source ~/Scripts/cupCake.sh
+source ../utils.sh
+source ../cupCake.sh
 
-installPackages (){
+installPackages(){
     Step "Install packages" &&
     sudo pacman -S --needed tigervnc
 }
 
-lightdmInstall (){
+lightdmInstall(){
     local file=/etc/lightdm/lightdm.conf
     Step "Installing lightdm" &&
     sudo pacman -S lightdm lightdm-slick-greeter &&
@@ -16,7 +16,7 @@ lightdmInstall (){
     sudo systemctl enable lightdm.service --force
 }
 
-lightdmConfig (){
+lightdmConfig(){
     local file=/etc/lightdm/lightdm.conf
     Step "Configuring lightdm" &&
     appendTo $file "[XDMCPServer]" &&
@@ -24,24 +24,24 @@ lightdmConfig (){
     appendTo $file "port=177"
 }
 
-sddmUninstall (){
+sddmUninstall(){
     Step "Uninstalling SDDM" &&
     sudo pacman -Rs sddm-kcm
 }
 
-socketConfig (){
+socketConfig(){
     local destination=/etc/systemd/system/xvnc.socket
     Step "Configuring xvnc.socket" &&
     overwrite ./xvnc.socket $destination
 }
 
-serviceConfig (){
+serviceConfig(){
     local destination=/etc/systemd/system/xvnc@.service
     Step "Configuring xvnc@.service" &&
 	overwrite ./xvnc@.service $destination
 }
 
-startService (){
+startService(){
     Step "Starting the service" &&
     systemctl enable xvnc.socket --now
 }

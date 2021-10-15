@@ -2,7 +2,7 @@
 scriptName=" "
 stepCont=1
 
-Step (){
+Step(){
     name=$1
     title="[ STEP $stepCont: $name ]"
 
@@ -37,14 +37,14 @@ Step (){
     done
 }
 
-End (){
+End(){
     echo
     echo "[CupCake :: End of the execution of script $scriptName]"
     echo
     exit 0
 }
 
-Run (){
+Run(){
     clear
     scriptName=$1
     echo
@@ -57,7 +57,7 @@ Run (){
     End
 }
 
-askSudo () {
+askSudo() {
     Step "Elevated permission is required" &&
     echo "`sudo whoami` is in the house."
 }
