@@ -7,9 +7,15 @@ addKey(){
     gpg --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 61ECEABBF2BB40E3A35DF30A9F72CDBC01BF10EB
 }
 
+
+installPrerequisits(){
+    Step "Install Prerequisits" &&
+    sudo pacman -S --needed yay base-devel
+}
+
 installPackages(){
     Step "Install packages" &&
-    yay -S --needed xrdp xorgxrdp yay base-devel
+    yay -S --needed xrdp xorgxrdp
 }
 
 XwrapperConfig(){
@@ -58,4 +64,4 @@ myIp(){
     ip a
 }
 
-Run $0 'askSudo addKey installPackages XwrapperConfig xinitrcConfig xrdpConfig sesmanConfig startServices servicesStatus myIp'
+Run $0 'askSudo addKey installPrerequisits installPackages XwrapperConfig xinitrcConfig xrdpConfig sesmanConfig startServices servicesStatus myIp'
