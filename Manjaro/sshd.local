@@ -1,0 +1,7 @@
+[sshd]
+enabled   = true
+filter    = sshd
+maxretry  = 2
+findtime  = 1d
+bantime   = 2w
+ignoreip  = 127.0.0.1/8
