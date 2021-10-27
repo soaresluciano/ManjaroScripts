@@ -1,25 +1,25 @@
-. ~/Scripts/utils.sh
-. ~/Scripts/cupCake.sh
+. ../utils.sh
+. ../Scripts/cupCake.sh
 
-piOverclock() {
+piOverclock(){
     Step "Overclock Pi" &&
     overclockPi /boot/firmware/usercfg.txt
 }
 
-fixKeyboard() {
+fixKeyboard(){
     local file=/etc/environment
     Step "Fix to include the Ç" &&
     backup $file &&
     appendTo $file "GTK_IM_MODULE=cedilla"
 }
 
-updateDistro() {
+updateDistro(){
     Step "Syncronize DB and update system" &&
     sudo apt -y update &&
     sudo apt -y full-upgrade
 }
 
-installBasics() {
+installBasics(){
     Step "Install basic utilities" &&
     sudo apt -y install htop neofetch
 }
