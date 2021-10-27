@@ -21,7 +21,7 @@ Step (){
                 return 0 && break
                 ;;
             s | S)
-                echo "Skiping [STEP $stepCont]"
+                echo "Skipping [STEP $stepCont]"
                 echo
                 return 1 && break
                 ;;
