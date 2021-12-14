@@ -21,7 +21,7 @@ updateDistro(){
 
 installBasics(){
     Step "Install basic utilities" &&
-    sudo apt -y install htop neofetch preload
+    sudo apt -y install htop neofetch preload timeshift ubuntu-restricted-extras
 }
 
 installCode(){
