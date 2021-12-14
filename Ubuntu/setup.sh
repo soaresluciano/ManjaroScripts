@@ -21,7 +21,7 @@ updateDistro(){
 
 installBasics(){
     Step "Install basic utilities" &&
-    sudo apt -y install htop neofetch
+    sudo apt -y install htop neofetch preload
 }
 
 installCode(){
