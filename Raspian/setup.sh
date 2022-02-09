@@ -1,6 +1,16 @@
 . ../utils.sh
 . ../cupCake.sh
 
+copyPiGroups(){
+    Step "Copy Pi Groups" &&
+    groups | sed 's/pi //g' | sed 's/ /,/g' | xargs -I{} sudo usermod -a -G {} luciano
+}
+
+removePiUser(){
+    Step "Remove Pi User" &&
+    sudo deluser --remove-home pi
+}
+
 piOverclock(){
     Step "Overclock Pi" &&
     overclockPi /boot/config.txt
@@ -15,6 +25,11 @@ updateDistro(){
 installBasics(){
     Step "Install basic utilities" &&
     sudo apt -y install htop neofetch preload timeshift bleachbit stacer
+}
+
+installPiApps(){
+    Step "Install Pi Apps" &&
+    wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bash
 }
 
 installCode(){
@@ -39,4 +54,4 @@ cleanUp(){
     sudo apt clean
 }
 
-Run $0 'askSudo piOverclock updateDistro installBasics installCode installNode cleanUp'
+Run $0 'askSudo copyPiGroups removePiUser piOverclock updateDistro installBasics installPiApps installCode installNode cleanUp'

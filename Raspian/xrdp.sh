@@ -1,9 +1,9 @@
 . ../utils.sh
 . ../xrdp_common.sh
-. ../Scripts/cupCake.sh
+. ../cupCake.sh
 
 install(){
-    Step "Execute a cleanup" &&
+    Step "Install xrdp" &&
     sudo apt-get install xrdp -y
 }
 
@@ -49,12 +49,7 @@ fix_ssl(){
 }
 
 fix_env(){
-    Step "Fix SSL Minor Issue" &&
-    xrdp_fix_env 
-}
-
-fix_env(){
-    Step "Fix SSL Minor Issue" &&
+    Step "Fix ENV Minor Issue" &&
     xrdp_fix_env 
 }
 
